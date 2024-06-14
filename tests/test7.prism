@@ -1,0 +1,35 @@
+mdp
+
+const double p;
+const double q;
+const double m;
+const double n;
+const double l;
+
+module main
+    s: [0..4] init 0;
+    
+    [a] s=0 -> p:(s'=1) + (1-p):(s'=2);
+    [b] s=0 -> q:(s'=2) + (1-q):(s'=3);
+    [a] s=1 -> m:(s'=0) + (1-m):(s'=4);
+    [b] s=1 -> (s'=3);
+    [a] s=2 -> n:(s'=1) + (1-n):(s'=4);
+    [b] s=2 -> l:(s'=4) + (1-l):(s'=0);
+    [a] s=3 -> (s'=4);
+    [b] s=3 -> (s'=2);
+    [] s=4 -> (s'=4);
+endmodule
+
+label "goal" = s=4;
+
+rewards
+    [a] s=0 : 5;
+    [b] s=0 : -3;
+    [a] s=1 : -4;
+    [b] s=1 : 2;
+    [a] s=2 : 6;
+    [b] s=2 : -1;
+    [a] s=3 : 4;
+    [b] s=3 : -2;
+    true: 0;
+endrewards
